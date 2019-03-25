@@ -8,7 +8,7 @@ let
     ''
     mkdir $out
 
-    python ${./demo.py} > $out/top.v
+    python ${./helloworld.py} > $out/top.v
 
     cat > $out/top.xdc << EOF
     set_property LOC K24 [get_ports serial_tx]
