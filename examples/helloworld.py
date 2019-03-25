@@ -20,13 +20,24 @@ class Top:
         m.submodules.clock = Instance("IBUFGDS",
             i_I=self.clk156_p, i_IB=self.clk156_n, o_O=cd_sync.clk)
 
+        string = "Hello World!\r\n"
+        mem = Memory(width=8, depth=len(string),
+                     init=[ord(c) for c in string])
+        m.submodules.rdport = rdport = mem.read_port(synchronous=False)
+
         tx = uart.RS232TX(round(2**32*self.baudrate/self.clk_freq))
         m.submodules.tx = tx
         m.d.comb += [
             tx.stb.eq(1),
-            tx.data.eq(ord("A")),
+            tx.data.eq(rdport.data),
             self.serial_tx.eq(tx.tx)
         ]
+
+        with m.If(tx.ack):
+            with m.If(rdport.addr == len(string) - 1):
+                m.d.sync += rdport.addr.eq(0)
+            with m.Else():
+                m.d.sync += rdport.addr.eq(rdport.addr + 1)
         
         return m
 
