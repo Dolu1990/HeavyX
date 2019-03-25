@@ -5,8 +5,7 @@ from heavycomps import uart
 
 
 class Top:
-    def __init__(self, clk_freq=156e6, baudrate=115200):
-        self.clk_freq = clk_freq
+    def __init__(self, baudrate=115200):
         self.baudrate = baudrate
         self.clk156_p = Signal()
         self.clk156_n = Signal()
@@ -25,7 +24,7 @@ class Top:
                      init=[ord(c) for c in string])
         m.submodules.rdport = rdport = mem.read_port(synchronous=False)
 
-        tx = uart.RS232TX(round(2**32*self.baudrate/self.clk_freq))
+        tx = uart.RS232TX(round(2**32*self.baudrate/156e6))
         m.submodules.tx = tx
         m.d.comb += [
             tx.stb.eq(1),
