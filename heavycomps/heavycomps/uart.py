@@ -1,6 +1,5 @@
 from nmigen import *
 from nmigen.lib.cdc import MultiReg
-from nmigen.cli import main
 
 
 class RS232RX:
@@ -50,6 +49,14 @@ class RS232RX:
 
         return m
 
+    def read(self):
+        while not (yield self.stb):
+            yield
+        value = yield self.data
+        # clear stb, otherwise multiple calls to this generator keep returning the same value
+        yield
+        return value
+
 
 class RS232TX:
     def __init__(self, tuning_word):
@@ -92,19 +99,10 @@ class RS232TX:
 
         return m
 
-
-class Loopback:
-    def elaborate(self, platform):
-        m = Module()
-        tuning_word = 2**31
-        tx = RS232TX(tuning_word)
-        rx = RS232RX(tuning_word)
-        m.submodules += tx, rx
-        m.d.comb += rx.rx.eq(tx.tx)
-        m.d.comb += tx.data.eq(42)
-        m.d.comb += tx.stb.eq(1)
-        return m
-
-if __name__ == "__main__":
-    uart = Loopback()
-    main(uart)
+    def write(self, data):
+        yield self.stb.eq(1)
+        yield self.data.eq(data)
+        yield
+        while not (yield self.ack):
+            yield
+        yield self.stb.eq(0)
