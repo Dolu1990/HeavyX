@@ -33,4 +33,5 @@ in
     ''
     mkdir -p $out/bin
     makeWrapper ${scala_2_11}/bin/scala $out/bin/scala-spinalhdl --prefix CLASSPATH : ${fmtJars}
+    makeWrapper ${scala_2_11}/bin/scalac $out/bin/scalac-spinalhdl --prefix CLASSPATH : ${fmtJars}
     ''
