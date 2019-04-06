@@ -18,7 +18,7 @@ let
     phases = [ "unpackPhase" "buildPhase" ];
     buildPhase = ''
       destdir=$out
-      rustc="${rustc_internal}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target riscv32imac-unknown-none -g -C target-feature=+mul,+div,+ffl1,+cmov,+addc -C opt-level=s --crate-type rlib"
+      rustc="${rustc_internal}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target riscv32imac-unknown-none-elf -g -C target-feature=+mul,+div,+ffl1,+cmov,+addc -C opt-level=s --crate-type rlib"
       
       mkdir -p ''${destdir}
       ''${rustc} --crate-name core src/libcore/lib.rs
@@ -58,8 +58,8 @@ in
     src = ./.;
     installPhase = ''
       mkdir $out
-      mkdir -p $out/lib/rustlib/riscv32imac-unknown-none/lib/
-      cp -r ${riscv32imac-crates}/* $out/lib/rustlib/riscv32imac-unknown-none/lib/
+      mkdir -p $out/lib/rustlib/riscv32imac-unknown-none-elf/lib/
+      cp -r ${riscv32imac-crates}/* $out/lib/rustlib/riscv32imac-unknown-none-elf/lib/
       cp -r ${rustc_internal}/* $out
     '';
     meta = with stdenv.lib; {
