@@ -1,7 +1,7 @@
 { stdenv, targetPackages
 , fetchurl, fetchgit, fetchzip, file, python2, tzdata, ps
-, llvm, jemalloc, ncurses, darwin, rustPlatform, git, cmake, curl
-, which, libffi, gdb, zlib
+, llvm, ncurses, darwin, rustPlatform, git, cmake, curl
+, which, libffi, gdb, zlib, libxml2
 , version
 , src
 , configureFlags ? []
@@ -53,7 +53,6 @@ stdenv.mkDerivation {
   configureFlags = configureFlags
                 ++ [ "--enable-local-rust" "--local-rust-root=${rustPlatform.rust.rustc}" "--enable-rpath" ]
                 ++ [ "--enable-vendor" ]
-                # ++ [ "--jemalloc-root=${jemalloc}/lib"
                 ++ [ "--default-linker=${targetPackages.stdenv.cc}/bin/cc" ]
                 ++ optional (targets != []) "--target=${target}"
                 ++ [ "--llvm-root=${llvm}" ] ;
@@ -119,7 +118,7 @@ stdenv.mkDerivation {
     # Only needed for the debuginfo tests
     ++ optional (!stdenv.isDarwin) gdb;
 
-  buildInputs = [ ncurses zlib ] ++ targetToolchains
+  buildInputs = [ ncurses zlib libxml2 ] ++ targetToolchains
     ++ optional stdenv.isDarwin Security;
 
   outputs = [ "out" "man" "doc" ];
