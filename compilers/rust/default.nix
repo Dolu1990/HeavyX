@@ -2,27 +2,23 @@
 , targets ? []
 , targetToolchains ? []
 , targetPatches ? []
-, fetchFromGitHub
 }:
 
 let
   rustPlatform = recurseIntoAttrs (makeRustPlatform (callPackage ./bootstrap.nix {}));
-  version = "1.28.0";
-  src = fetchFromGitHub {
-    owner = "m-labs";
-    repo = "rust";
-    sha256 = "03lfps3xvvv7wv1nnwn3n1ji13z099vx8c3fpbzp9rnasrwzp5jy";
-    rev = "f305fb024318e96997fbe6e4a105b0cc1052aad4"; #  artiq-1.28.0 branch
-    fetchSubmodules = true;
+  version = "1.32.0";
+  src = fetchurl {
+    url = "https://static.rust-lang.org/dist/rustc-${version}-src.tar.gz";
+    sha256 = "0ji2l9xv53y27xy72qagggvq47gayr5lcv2jwvmfirx029vlqnac";
   };
   # nixcloud team code
-  or1k-crates = stdenv.mkDerivation {
-    name = "or1k-crates";
+  riscv32imac-crates = stdenv.mkDerivation {
+    name = "riscv32imac-crates";
     inherit src;
     phases = [ "unpackPhase" "buildPhase" ];
     buildPhase = ''
       destdir=$out
-      rustc="${rustc_internal}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target or1k-unknown-none -g -C target-feature=+mul,+div,+ffl1,+cmov,+addc -C opt-level=s --crate-type rlib"
+      rustc="${rustc_internal}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target riscv32imac-unknown-none -g -C target-feature=+mul,+div,+ffl1,+cmov,+addc -C opt-level=s --crate-type rlib"
       
       mkdir -p ''${destdir}
       ''${rustc} --crate-name core src/libcore/lib.rs
@@ -45,11 +41,6 @@ let
 
       # Re-evaluate if this we need to disable this one
       #./patches/stdsimd-disable-doctest.patch
-
-      # Fails on hydra - not locally; the exact reason is unknown.
-      # Comments in the test suggest that some non-reproducible environment
-      # variables such $RANDOM can make it fail.
-      ./patches/disable-test-inherit-env.patch
     ];
 
     # 1. Upstream is not running tests on aarch64:
@@ -67,8 +58,8 @@ in
     src = ./.;
     installPhase = ''
       mkdir $out
-      mkdir -p $out/lib/rustlib/or1k-unknown-none/lib/
-      cp -r ${or1k-crates}/* $out/lib/rustlib/or1k-unknown-none/lib/
+      mkdir -p $out/lib/rustlib/riscv32imac-unknown-none/lib/
+      cp -r ${riscv32imac-crates}/* $out/lib/rustlib/riscv32imac-unknown-none/lib/
       cp -r ${rustc_internal}/* $out
     '';
     meta = with stdenv.lib; {

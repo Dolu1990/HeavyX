@@ -1,4 +1,4 @@
-{ stdenv, makeWrapper, bash, buildRustPackage, curl, darwin
+{ stdenv, makeWrapper, bash, curl, darwin
 , version
 , src
 , platform
@@ -18,8 +18,6 @@ let
 in
 
 rec {
-  inherit buildRustPackage;
-
   rustc = stdenv.mkDerivation rec {
     name = "rustc-${versionType}-${version}";
 
@@ -29,7 +27,7 @@ rec {
     meta = with stdenv.lib; {
       homepage = http://www.rust-lang.org/;
       description = "A safe, concurrent, practical language";
-      #maintainers = with maintainers; [ sb0 ];
+      maintainers = with maintainers; [ sb0 ];
       license = [ licenses.mit licenses.asl20 ];
     };
 
@@ -83,7 +81,7 @@ rec {
     meta = with stdenv.lib; {
       homepage = http://www.rust-lang.org/;
       description = "A safe, concurrent, practical language";
-      #maintainers = with maintainers; [ sb0 ];
+      maintainers = with maintainers; [ sb0 ];
       license = [ licenses.mit licenses.asl20 ];
     };
 
