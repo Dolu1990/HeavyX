@@ -16,7 +16,9 @@ rec {
   heavycomps = pkgs.callPackage ./heavycomps.nix { inherit nmigen; };
 
   binutils-riscv = pkgs.callPackage ./compilers/binutils.nix { platform = "riscv32"; };
-  binutils-or1k = pkgs.callPackage ./compilers/binutils.nix { platform = "or1k"; };
-  llvm-hx = pkgs.callPackage ./compilers/llvm-hx.nix {};
-  rustc = pkgs.callPackage ./compilers/rust { llvm = llvm-hx; };
+  llvm = pkgs.llvm_7.overrideAttrs(oa: {
+    cmakeFlags = oa.cmakeFlags ++ ["-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=RISCV"];
+  });
+  rustc = pkgs.rustc.override { inherit llvm; };
+  riscv32imc-crates = pkgs.callPackage ./compilers/riscv32imc-crates.nix { inherit rustc; };
 }
