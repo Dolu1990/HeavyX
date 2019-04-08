@@ -1,11 +1,11 @@
 { stdenv, rustc }:
 stdenv.mkDerivation {
-  name = "riscv32imc-crates";
+  name = "rust-riscv32i-crates";
   src = rustc.src;
   phases = [ "unpackPhase" "buildPhase" ];
   buildPhase = ''
     destdir=$out/lib/rustlib/riscv32imac-unknown-none-elf/lib/
-    rustc="${rustc}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target riscv32imc-unknown-none-elf -g -C opt-level=s --crate-type rlib"
+    rustc="${rustc}/bin/rustc --out-dir ''${destdir} -L ''${destdir} --target riscv32i-unknown-none-elf -g -C opt-level=s --crate-type rlib"
 
     mkdir -p ''${destdir}
     export RUSTC_BOOTSTRAP=1

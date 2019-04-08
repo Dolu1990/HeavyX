@@ -19,6 +19,8 @@ rec {
   llvm = pkgs.llvm_7.overrideAttrs(oa: {
     cmakeFlags = oa.cmakeFlags ++ ["-DLLVM_EXPERIMENTAL_TARGETS_TO_BUILD=RISCV"];
   });
-  rustc = pkgs.rustc.override { inherit llvm; };
-  riscv32imc-crates = pkgs.callPackage ./compilers/riscv32imc-crates.nix { inherit rustc; };
+  rustc = (pkgs.rustc.overrideAttrs(oa: {
+    patches = oa.patches ++ [ ./compilers/rustc-riscv32i.patch ];
+  })).override { inherit llvm; };
+  rust-riscv32i-crates = pkgs.callPackage ./compilers/rust-riscv32i-crates.nix { inherit rustc; };
 }

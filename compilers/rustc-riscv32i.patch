@@ -1,0 +1,67 @@
+commit 23c32a1597df69083f4fa6fb932410cb342e266e
+Author: Sebastien Bourdeauducq <sb@m-labs.hk>
+Date:   Tue Apr 9 00:15:31 2019 +0800
+
+    add riscv32i
+
+diff --git a/src/librustc_target/spec/mod.rs b/src/librustc_target/spec/mod.rs
+index 46fefd78f4..181342db7d 100644
+--- a/src/librustc_target/spec/mod.rs
++++ b/src/librustc_target/spec/mod.rs
+@@ -465,6 +465,7 @@ supported_targets! {
+     ("aarch64-unknown-hermit", aarch64_unknown_hermit),
+     ("x86_64-unknown-hermit", x86_64_unknown_hermit),
+ 
++    ("riscv32i-unknown-none-elf", riscv32i_unknown_none_elf),
+     ("riscv32imc-unknown-none-elf", riscv32imc_unknown_none_elf),
+     ("riscv32imac-unknown-none-elf", riscv32imac_unknown_none_elf),
+     ("riscv64imac-unknown-none-elf", riscv64imac_unknown_none_elf),
+diff --git a/src/librustc_target/spec/riscv32i_unknown_none_elf.rs b/src/librustc_target/spec/riscv32i_unknown_none_elf.rs
+new file mode 100644
+index 0000000000..a015e16d93
+--- /dev/null
++++ b/src/librustc_target/spec/riscv32i_unknown_none_elf.rs
+@@ -0,0 +1,31 @@
++use crate::spec::{LinkerFlavor, LldFlavor, PanicStrategy,
++           Target, TargetOptions, TargetResult};
++
++pub fn target() -> TargetResult {
++    Ok(Target {
++        data_layout: "e-m:e-p:32:32-i64:64-n32-S128".to_string(),
++        llvm_target: "riscv32".to_string(),
++        target_endian: "little".to_string(),
++        target_pointer_width: "32".to_string(),
++        target_c_int_width: "32".to_string(),
++        target_os: "none".to_string(),
++        target_env: String::new(),
++        target_vendor: "unknown".to_string(),
++        arch: "riscv32".to_string(),
++        linker_flavor: LinkerFlavor::Lld(LldFlavor::Ld),
++
++        options: TargetOptions {
++            linker: Some("rust-lld".to_string()),
++            cpu: "generic-rv32".to_string(),
++            max_atomic_width: Some(32),
++            atomic_cas: true,
++            features: "-m,-a,-c".to_string(),
++            executables: true,
++            panic_strategy: PanicStrategy::Abort,
++            relocation_model: "static".to_string(),
++            emit_debug_gdb_scripts: false,
++            abi_blacklist: super::riscv_base::abi_blacklist(),
++            .. Default::default()
++        },
++    })
++}
+diff --git a/src/tools/build-manifest/src/main.rs b/src/tools/build-manifest/src/main.rs
+index 61cc78ad80..4364ef41f9 100644
+--- a/src/tools/build-manifest/src/main.rs
++++ b/src/tools/build-manifest/src/main.rs
+@@ -92,6 +92,7 @@ static TARGETS: &[&str] = &[
+     "powerpc-unknown-linux-gnu",
+     "powerpc64-unknown-linux-gnu",
+     "powerpc64le-unknown-linux-gnu",
++    "riscv32i-unknown-none-elf",
+     "riscv32imc-unknown-none-elf",
+     "riscv32imac-unknown-none-elf",
+     "riscv64imac-unknown-none-elf",
