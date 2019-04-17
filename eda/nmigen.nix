@@ -10,7 +10,7 @@ python3Packages.buildPythonPackage {
     sha256 = "17s9771f1swb9aajmddmpcslwzla5y17gzjzlzwk5kmgywxydq3v";
   };
 
-  checkPhase = "PATH=${yosys}/bin:${symbiyosys}/bin:${yices}/bin:$PATH python -m unittest discover nmigen.test";
+  checkPhase = "PATH=${yosys}/bin:${symbiyosys}/bin:${yices}/bin:$PATH python -m unittest discover nmigen.test -v";
 
   propagatedBuildInputs = [ python3Packages.bitarray python3Packages.pyvcd ];
 
