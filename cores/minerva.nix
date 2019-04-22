@@ -6,8 +6,8 @@ python3Packages.buildPythonPackage {
   src = fetchFromGitHub {
     owner = "lambdaconcept";
     repo = "minerva";
-    rev = "2b94dd6be54a0d4542ef320405dfa8a15e8fac93";
-    sha256 = "0w073nqvjh1vplmw463sz90ykfpz1mkmfmmglnqwhvp90p9ryhnr";
+    rev = "6e6800f0e39d166653c3e2a7b774977209cc078a";
+    sha256 = "1107w83ipdhvxgrchlifvpqj0gk730ikpjh83h2ydqqbvpaj462m";
   };
 
   propagatedBuildInputs = [ nmigen jtagtap ];
