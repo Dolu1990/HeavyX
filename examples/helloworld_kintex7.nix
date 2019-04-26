@@ -8,7 +8,7 @@ let
     ''
     mkdir $out
 
-    python ${./helloworld.py} > $out/top.v
+    python ${./helloworld_kintex7.py} > $out/top.v
 
     cat > $out/top.xdc << EOF
     set_property LOC K24 [get_ports serial_tx]
