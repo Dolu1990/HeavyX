@@ -33,5 +33,5 @@ in
           mkdir $out
           cp *.dcp *.rpt *.bit $out
           '';
-  	  };
+      };
   }

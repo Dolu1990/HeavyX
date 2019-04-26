@@ -2,7 +2,7 @@
 , hx ? import ../default.nix { inherit pkgs; }}:
 
 let
-  vivadoInput = pkgs.runCommand "test-vivado-input" {
+  vivadoInput = pkgs.runCommand "helloworld-vivado-input" {
       buildInputs = [ (pkgs.python3.withPackages(ps: [hx.nmigen hx.heavycomps])) hx.yosys ];
     }
     ''
@@ -43,6 +43,6 @@ let
     '';
 in
   hx.vivado.buildBitstream {
-    name = "test-design";
+    name = "helloworld-bitstream";
     src = vivadoInput;
   }
