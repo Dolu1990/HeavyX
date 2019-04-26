@@ -22,7 +22,7 @@ let
   };
 in
   {
-    buildBitstream = { name, src, vivadoPath ? "/home/sb/opt/Xilinx/Vivado/2018.3" }:
+    buildBitstream = { name, src, vivadoPath ? "/opt/Xilinx/Vivado/2018.3" }:
       pkgs.stdenv.mkDerivation {
         inherit name src;
         phases = [ "buildPhase" ];
