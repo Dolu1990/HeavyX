@@ -4,7 +4,7 @@ from nmigen.back import verilog
 from heavycomps import uart
 
 
-class Top:
+class Top(Elaboratable):
     def __init__(self, baudrate=115200):
         self.baudrate = baudrate
         self.clk156_p = Signal()

@@ -1,7 +1,7 @@
 from nmigen import *
 
 
-class RoundRobin:
+class RoundRobin(Elaboratable):
     def __init__(self, n):
         self.n = n
         self.request = Signal(n)

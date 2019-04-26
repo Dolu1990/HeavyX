@@ -2,7 +2,7 @@ from nmigen import *
 from nmigen.lib.cdc import MultiReg
 
 
-class RS232RX:
+class RS232RX(Elaboratable):
     def __init__(self, tuning_word):
         self.rx = Signal()
         self.data = Signal(8)
@@ -58,7 +58,7 @@ class RS232RX:
         return value
 
 
-class RS232TX:
+class RS232TX(Elaboratable):
     def __init__(self, tuning_word):
         self.tx = Signal(reset=1)
         self.data = Signal(8)

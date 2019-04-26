@@ -6,7 +6,7 @@ from nmigen.back.pysim import *
 from heavycomps import uart
 
 
-class Loopback:
+class Loopback(Elaboratable):
     def __init__(self, tuning_word=2**31):
         self.tx = uart.RS232TX(tuning_word)
         self.rx = uart.RS232RX(tuning_word)
