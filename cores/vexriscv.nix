@@ -1,10 +1,10 @@
 { runCommand, fetchFromGitHub, makeWrapper, scala-spinalhdl, name, scalaToRun }:
 let
   vexriscv-src = fetchFromGitHub {
-    rev = "d63c6818df8c7229ee9c2ffa83181748b930e1d9";
+    rev = "fa13e46e873c3ec35e5c7c07c320259eda6ef789";
     owner = "SpinalHDL";
     repo = "VexRiscv";
-    sha256 = "1q707icib7q7x9njm4f73g36jjs9q1cvfpv10w6a4jhswg63zyga";
+    sha256 = "146m8m00zf7sqhfqg2aybv0m9if3q9asbji0ff0sf4aq652b5b4y";
   };
   vexriscv-compiled = runCommand "vexriscv-compiled" {}
     ''

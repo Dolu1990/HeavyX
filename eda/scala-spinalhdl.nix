@@ -15,16 +15,16 @@ let
       sha256 = "0y9av2rpnaj3z9zg4chfpxgjx3xqqx9bzcv0jr3n9h4v5fqbc52r";
     })
     (fetchurl {
-      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-core_2.11/1.3.2/spinalhdl-core_2.11-1.3.2.jar;
-      sha256 = "0l6156n6b7jdg4sddv1kg26yadypccjaqgb0c2ca4r4m9z6s2ww7";
+      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-core_2.11/1.3.3/spinalhdl-core_2.11-1.3.3.jar;
+      sha256 = "1zrs5wahgvc12zsycrhwsqw4gghjj0yf3wcywra0c9yjydahsgwq";
     })
     (fetchurl {
-      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-lib_2.11/1.3.2/spinalhdl-lib_2.11-1.3.2.jar;
-      sha256 = "0x3ci6ypisq5m62gsf9g01sqh0qhjfayfpl4r3fffx73xpzfq4h2";
+      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-lib_2.11/1.3.3/spinalhdl-lib_2.11-1.3.3.jar;
+      sha256 = "1s9hyyrf2iph4dhfb0nsi2s5hdxhqwpyzjnsvhm5bnsysqa1f3lc";
     })
     (fetchurl {
-      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-sim_2.11/1.3.2/spinalhdl-sim_2.11-1.3.2.jar;
-      sha256 = "0nvg6phr3rcffkamzrvvl44sd5y4scdy2r3jzk660939vxcz0605";
+      url = https://oss.sonatype.org/content/groups/public/com/github/spinalhdl/spinalhdl-sim_2.11/1.3.3/spinalhdl-sim_2.11-1.3.3.jar;
+      sha256 = "0wqwy5g241c7sjxb5p5wff77wdql5v987j23451is9v6qv76i3v6";
     })
   ];
   fmtJars = builtins.concatStringsSep ":" (builtins.map (x: "${x}") jars);
