@@ -11,10 +11,10 @@ let
     python ${./helloworld_ecp5.py} > $out/top.il
 
     cat > $out/top.lpf << EOF
-    LOCATE COMP "serial_tx" SITE "A4";
-    IOBUF PORT "P3" IO_TYPE=LVDS;
-    LOCATE COMP "tx" SITE "B19";
-    IOBUF PORT "C11" IO_TYPE=LVCMOS33;
+    LOCATE COMP "clk100" SITE "P3";
+    IOBUF PORT "clk100" IO_TYPE=LVDS;
+    LOCATE COMP "serial_tx" SITE "C11";
+    IOBUF PORT "serial_tx" IO_TYPE=LVCMOS33;
     EOF
 
     echo -n "--um-45k --package CABGA381" > $out/device
