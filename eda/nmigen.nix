@@ -6,8 +6,8 @@ python3Packages.buildPythonPackage {
   src = fetchFromGitHub {
     owner = "m-labs";
     repo = "nmigen";
-    rev = "aed2062101afe14336cfca36cc22cb6f585c3795";
-    sha256 = "0hyxn41xz4y84xxvvj8nccn86b7ad8n7l1m0dz2dvxnyrhq5knnw";
+    rev = "6a77122c2ed422ac7e7e96d9d4ba58c6b37fa8bc";
+    sha256 = "1gd249pj9c0kskwfdl1idhv6gx74lr9s3ycn66vy0hyhns5df0zq";
   };
 
   checkPhase = "PATH=${yosys}/bin:${symbiyosys}/bin:${yices}/bin:$PATH python -m unittest discover nmigen.test -v";
