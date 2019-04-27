@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     (fetchFromGitHub {
       owner  = "yosyshq";
       repo   = "yosys";
-      rev    = "ccfa2fe01cffcc4d23bc989e558bd33addfea58e";
-      sha256 = "05raqky4l2na8nyim51g8fzv49mg5f3p64lpdr7slxg74s270zry";
+      rev    = "ea0e0722bb42254ac8c63eb41664d9dfb7973aec";
+      sha256 = "1sq9a1h651is9wq8sq4kb4n8v4d91fmdc7g01nrxj1vk1nji8308";
       name   = "yosys";
     })
 
@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     (fetchFromGitHub {
       owner  = "berkeley-abc";
       repo   = "abc";
-      rev    = "2ddc57d8760d94e86699be39a628178cff8154f8";
-      sha256 = "0da7nnnnl9cq2r7s301xgdc8nlr6hqmqpvd9zn4b58m125sp0scl";
+      rev    = "3709744c60696c5e3f4cc123939921ce8107fe04";
+      sha256 = "18a9cjng3qfalq8m9az5ck1y5h4l2pf9ycrvkzs9hn82b1j7vrax";
       name   = "yosys-abc";
     })
   ];
