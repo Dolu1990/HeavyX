@@ -8,7 +8,7 @@ with builtins;
 
 stdenv.mkDerivation rec {
   name = "yosys-${version}";
-  version = "2019.03.25hx";
+  version = "2019.04.27hx";
 
   srcs = [
     (fetchFromGitHub {
